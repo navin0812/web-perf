@@ -1,0 +1,267 @@
+name: CI Checks
+
+on:
+    pull_request:
+        branches: [main, beta]
+    push:
+        branches: [main, beta]
+
+permissions:
+    contents: read
+    pull-requests: write
+
+jobs:
+    validate:
+        name: Validate Code
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "18"
+                  cache: "npm"
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Check TypeScript compilation
+              run: npm run build
+
+            - name: Verify package.json
+              run: |
+                  echo "Checking package.json structure..."
+                  node -e "const pkg = require('./package.json'); if (!pkg.workspaces) throw new Error('Missing workspaces')"
+                  node -e "const pkg = require('./packages/cli/package.json'); if (!pkg.bin) throw new Error('Missing bin field')"
+                  node -e "const pkg = require('./packages/core/package.json'); if (!pkg.main) throw new Error('Missing main field')"
+
+            - name: Check CLI executable
+              run: |
+                  if [ ! -x "packages/cli/bin/cli.js" ]; then
+                    echo "Error: CLI file is not executable"
+                    exit 1
+                  fi
+                  if ! head -n 1 packages/cli/bin/cli.js | grep -q "#!/usr/bin/env node"; then
+                    echo "Error: CLI file missing shebang"
+                    exit 1
+                  fi
+
+    test:
+        name: Run Tests
+        runs-on: ubuntu-latest
+        needs: validate
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "18"
+                  cache: "npm"
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Build packages
+              run: npm run build
+
+            - name: Make test script executable
+              run: chmod +x test-sites.sh
+
+            - name: Run test suite
+              run: ./test-sites.sh
+              timeout-minutes: 10
+
+            - name: Upload test results
+              if: always()
+              uses: actions/upload-artifact@v4
+              with:
+                  name: test-results
+                  path: test-results/
+                  retention-days: 7
+                  if-no-files-found: warn
+
+    integration-test:
+        name: Integration Tests
+        runs-on: ubuntu-latest
+        needs: validate
+
+        strategy:
+            matrix:
+                url:
+                    - https://example.com
+                    - https://github.com
+                format:
+                    - json
+                    - html
+                    - terminal
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "18"
+                  cache: "npm"
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Build packages
+              run: npm run build
+
+            - name: Test CLI - ${{ matrix.url }} - ${{ matrix.format }}
+              run: |
+                  node packages/cli/bin/cli.js \
+                    --url "${{ matrix.url }}" \
+                    --format "${{ matrix.format }}" \
+                    --output-dir "./test-output"
+              timeout-minutes: 5
+
+            - name: Verify output files
+              run: |
+                  if [ "${{ matrix.format }}" = "json" ] || [ "${{ matrix.format }}" = "all" ]; then
+                    if ! ls ./test-output/*.json 1> /dev/null 2>&1; then
+                      echo "Error: JSON file not generated"
+                      exit 1
+                    fi
+                  fi
+
+                  if [ "${{ matrix.format }}" = "html" ] || [ "${{ matrix.format }}" = "all" ]; then
+                    if ! ls ./test-output/*.html 1> /dev/null 2>&1; then
+                      echo "Error: HTML file not generated"
+                      exit 1
+                    fi
+                  fi
+
+    dependency-check:
+        name: Dependency Audit
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "18"
+                  cache: "npm"
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Run npm audit
+              run: npm audit --audit-level=moderate
+              continue-on-error: true
+
+            - name: Check for security vulnerabilities
+              run: |
+                  npm audit --json > audit-results.json
+                  VULNERABILITIES=$(cat audit-results.json | node -e "const data = JSON.parse(require('fs').readFileSync(0)); console.log(data.metadata.vulnerabilities.high + data.metadata.vulnerabilities.critical)")
+                  echo "High/Critical vulnerabilities: $VULNERABILITIES"
+                  if [ "$VULNERABILITIES" -gt 0 ]; then
+                    echo "::warning::Found $VULNERABILITIES high/critical vulnerabilities"
+                  fi
+
+    lint-commits:
+        name: Lint Commit Messages
+        runs-on: ubuntu-latest
+        if: github.event_name == 'pull_request'
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "18"
+
+            - name: Check commit messages
+              run: |
+                  # Get commits in this PR
+                  COMMITS=$(git log --format=%s origin/${{ github.base_ref }}..HEAD)
+
+                  echo "Checking commit messages for conventional format..."
+                  echo "$COMMITS" | while read -r commit; do
+                    if ! echo "$commit" | grep -qE "^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\(.+\))?: .+"; then
+                      echo "::warning::Commit message does not follow conventional format: $commit"
+                      echo "::warning::Expected format: type(scope): description"
+                      echo "::warning::Types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert"
+                    fi
+                  done
+
+    size-check:
+        name: Package Size Check
+        runs-on: ubuntu-latest
+        needs: validate
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "18"
+                  cache: "npm"
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Build packages
+              run: npm run build
+
+            - name: Check package sizes
+              run: |
+                  echo "### Package Sizes" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+
+                  # Check core package size
+                  CORE_SIZE=$(du -sh packages/core/dist | cut -f1)
+                  echo "- **@web-perf/core dist:** $CORE_SIZE" >> $GITHUB_STEP_SUMMARY
+
+                  # Check CLI package size
+                  CLI_SIZE=$(du -sh packages/cli/dist | cut -f1)
+                  echo "- **web-perf dist:** $CLI_SIZE" >> $GITHUB_STEP_SUMMARY
+
+                  # Check total node_modules size
+                  MODULES_SIZE=$(du -sh node_modules | cut -f1)
+                  echo "- **node_modules:** $MODULES_SIZE" >> $GITHUB_STEP_SUMMARY
+
+    status-check:
+        name: All Checks Passed
+        runs-on: ubuntu-latest
+        needs: [validate, test, integration-test, dependency-check]
+        if: always()
+
+        steps:
+            - name: Check job results
+              run: |
+                  if [ "${{ needs.validate.result }}" != "success" ]; then
+                    echo "::error::Validation failed"
+                    exit 1
+                  fi
+
+                  if [ "${{ needs.test.result }}" != "success" ]; then
+                    echo "::error::Tests failed"
+                    exit 1
+                  fi
+
+                  if [ "${{ needs.integration-test.result }}" != "success" ]; then
+                    echo "::error::Integration tests failed"
+                    exit 1
+                  fi
+
+                  echo "✅ All checks passed!"
+                  echo "### ✅ All CI Checks Passed" >> $GITHUB_STEP_SUMMARY
