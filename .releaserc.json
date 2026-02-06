@@ -52,30 +52,28 @@
       {
         "changelogFile": "CHANGELOG.md",
         "changelogTitle": "# Changelog\n\nAll notable changes to this project will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)."
+      },
+      "@semantic-release/exec",
+      {
+        "prepareCmd": "git add ../../package-lock.json"
       }
     ],
     [
       "@semantic-release/npm",
       {
-        "npmPublish": true,
-        "pkgRoot": "packages/cli"
+        "tarballDir": "tmp"
       }
     ],
     [
       "@semantic-release/npm",
       {
-        "npmPublish": true,
-        "pkgRoot": "packages/core"
+        "path": "tmp/*.tgz"
       }
     ],
     [
       "@semantic-release/git",
       {
-        "assets": [
-          "CHANGELOG.md",
-          "package.json",
-          "packages/*/package.json"
-        ],
+        "assets": ["CHANGELOG.md"],
         "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
       }
     ],

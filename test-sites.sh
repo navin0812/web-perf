@@ -30,11 +30,14 @@ run_test() {
     echo "Args: $args"
     echo ""
     
-    if node packages/cli/bin/cli.js --url "$url" $args > /dev/null 2>&1; then
+    output=$(node packages/cli/bin/cli.js --url "$url" $args 2>&1)
+    if [ $? -eq 0 ]; then
         echo -e "${GREEN}✓ PASSED${NC}"
         ((PASSED++))
     else
         echo -e "${RED}✗ FAILED${NC}"
+        echo "Error output:"
+        echo "$output"
         ((FAILED++))
     fi
     echo ""
@@ -78,7 +81,7 @@ run_test "Terminal Format Only" \
 # Test 7: With thresholds (should pass)
 run_test "Thresholds (Lenient)" \
     "https://amazon.com" \
-    "--format json --output-dir test-results/threshold-pass --threshold critical:100 error:100 warning:100"
+    "--format json --output-dir test-results/threshold-pass --threshold '{"critical":100, "serious":100, "minor":100}'"
 
 # Test 8: Skip audits
 run_test "Skip PWA Audit" \
