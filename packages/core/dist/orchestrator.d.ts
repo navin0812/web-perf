@@ -9,8 +9,14 @@ export type AuditType = "accessibility" | "performance" | "seo" | "security" | "
 export interface AuditOptions {
     /** Audits to skip */
     skipAudits?: AuditType[];
-    /** Maximum time to wait for page load in milliseconds */
+    /** Maximum time to wait for page load in milliseconds (default: 10000) */
     timeout?: number;
+    /** Maximum page size in bytes (default: 10MB) */
+    maxSize?: number;
+    /** Maximum time for all audits to complete in milliseconds (default: 60000) */
+    auditTimeout?: number;
+    /** Whether to allow JavaScript execution on the page */
+    allowJs?: boolean;
 }
 /**
  * Run a specific subset of audits
