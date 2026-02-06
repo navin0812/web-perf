@@ -46,8 +46,8 @@ run_test() {
 mkdir -p test-results
 
 # Test 1: Simple well-formed website
-run_test "Simple Website (example.com)" \
-    "https://example.com" \
+run_test "Simple Website (bot)" \
+    "https://amazon.com" \
     "--format all --output-dir test-results/example"
 
 # Test 2: Complex website (GitHub)
@@ -62,32 +62,32 @@ run_test "E-commerce (amazon.com)" \
 
 # Test 4: JSON format only
 run_test "JSON Format Only" \
-    "https://example.com" \
+    "https://amazon.com" \
     "--format json --output-dir test-results/json-only"
 
 # Test 5: HTML format only
 run_test "HTML Format Only" \
-    "https://example.com" \
+    "https://amazon.com" \
     "--format html --output-dir test-results/html-only"
 
 # Test 6: Terminal format only
 run_test "Terminal Format Only" \
-    "https://example.com" \
+    "https://amazon.com" \
     "--format terminal"
 
 # Test 7: With thresholds (should pass)
 run_test "Thresholds (Lenient)" \
-    "https://example.com" \
+    "https://amazon.com" \
     "--format json --output-dir test-results/threshold-pass --threshold critical:100 error:100 warning:100"
 
 # Test 8: Skip audits
 run_test "Skip PWA Audit" \
-    "https://example.com" \
+    "https://amazon.com" \
     "--format json --output-dir test-results/skip-pwa --skip-audits pwa"
 
 # Test 9: Skip multiple audits
 run_test "Skip Multiple Audits" \
-    "https://example.com" \
+    "https://amazon.com" \
     "--format json --output-dir test-results/skip-multiple --skip-audits pwa,best-practices"
 
 # Test 10: Wikipedia (knowledge site)
