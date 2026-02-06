@@ -1,0 +1,43 @@
+# Files to exclude from npm package
+
+# Source files
+*.ts
+!*.d.ts
+tsconfig.json
+
+# Development
+.vscode/
+.idea/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Testing
+test-results/
+coverage/
+.nyc_output/
+test-sites.sh
+
+# Documentation (exclude from package, keep in repo)
+prd.md
+PERFORMANCE_OPTIMIZATION.md
+.github/
+
+# Build artifacts
+*.tsbuildinfo
+
+# macOS
+.DS_Store
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Temporary files
+*.tmp
+*.temp
+web-perf-reports/
+reports/
+custom-reports/
