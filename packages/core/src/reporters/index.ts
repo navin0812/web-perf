@@ -1,4 +1,4 @@
-import { AuditReport } from "../types.js";
+import { AuditReport, ThresholdConfig } from "../types.js";
 import { renderTerminalReport } from "./terminal.js";
 import { renderJsonReport } from "./json.js";
 import { renderHtmlReport } from "./html.js";
@@ -7,10 +7,11 @@ import { ReporterFormat } from "./types.js";
 export function renderReport(
   report: AuditReport,
   format: ReporterFormat,
+  threshold?: ThresholdConfig,
 ): string | void {
   switch (format) {
     case "terminal":
-      renderTerminalReport(report);
+      renderTerminalReport(report, threshold);
       return;
     case "json":
       return renderJsonReport(report);

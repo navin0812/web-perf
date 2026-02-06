@@ -1,10 +1,10 @@
 import { renderTerminalReport } from "./terminal.js";
 import { renderJsonReport } from "./json.js";
 import { renderHtmlReport } from "./html.js";
-export function renderReport(report, format) {
+export function renderReport(report, format, threshold) {
     switch (format) {
         case "terminal":
-            renderTerminalReport(report);
+            renderTerminalReport(report, threshold);
             return;
         case "json":
             return renderJsonReport(report);

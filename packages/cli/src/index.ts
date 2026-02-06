@@ -109,14 +109,18 @@ async function generateReports(
     if (format === "terminal") {
       // Terminal output goes to stdout
       console.log(chalk.blue("📊 Report:\n"));
-      renderReport(report, "terminal");
+      renderReport(report, "terminal", options.threshold);
       console.log();
     } else {
       // JSON and HTML are saved to files
       console.log(
         chalk.yellow(`📝 Generating ${format.toUpperCase()} report...`),
       );
-      const content = renderReport(report, format as "json" | "html");
+      const content = renderReport(
+        report,
+        format as "json" | "html",
+        options.threshold,
+      );
 
       if (content) {
         const filePath = saveReport(report, content, options.outputDir, format);
