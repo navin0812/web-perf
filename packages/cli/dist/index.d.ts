@@ -5,6 +5,7 @@ export type CliOptions = {
     outputDir: string;
     threshold?: ThresholdConfig;
     skipAudits?: string[];
+    allowJs?: boolean;
 };
 /**
  * Main CLI entry point

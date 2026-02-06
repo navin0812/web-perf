@@ -3,17 +3,33 @@ import fetch from "node-fetch";
 /**
  * Load a URL using jsdom with Shadow DOM support
  */
-export async function loadPage(url) {
+export async function loadPage(url, options = {}) {
+    const timeout = options.timeout || 10000; // 10 second default
+    const maxSize = options.maxSize || 10_000_000; // 10MB default
     try {
+        // Create abort controller for timeout
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), timeout);
         const response = await fetch(url, {
             headers: {
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
             },
+            signal: controller.signal,
         });
+        clearTimeout(timeoutId);
         if (!response.ok) {
             throw new Error(`Failed to fetch ${url}: ${response.statusText}`);
         }
+        // Check content size before downloading
+        const contentLength = response.headers.get("content-length");
+        if (contentLength && parseInt(contentLength) > maxSize) {
+            throw new Error(`Page too large: ${contentLength} bytes (max: ${maxSize} bytes)`);
+        }
         const html = await response.text();
+        // Check actual HTML size
+        if (html.length > maxSize) {
+            throw new Error(`HTML too large: ${html.length} bytes (max: ${maxSize} bytes)`);
+        }
         // Create virtual console to suppress script errors from external scripts
         const virtualConsole = new VirtualConsole();
         virtualConsole.on("jsdomError", (error) => {
@@ -25,11 +41,13 @@ export async function loadPage(url) {
             }
         });
         // Create jsdom instance with Shadow DOM support
+        // Performance optimization: disable resource loading and script execution
+        // Most audits only need static HTML structure
         const dom = new JSDOM(html, {
             url,
             pretendToBeVisual: true,
-            resources: "usable",
-            runScripts: "dangerously",
+            // Don't load external resources (huge perf gain) - omit resources option to disable
+            runScripts: !options.allowJs ? "outside-only" : undefined, // Only run scripts we inject (like axe-core)
             virtualConsole,
             beforeParse(window) {
                 // Polyfill browser APIs not supported by JSDOM

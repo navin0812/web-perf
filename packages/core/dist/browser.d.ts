@@ -8,7 +8,11 @@ export type BrowserPage = {
 /**
  * Load a URL using jsdom with Shadow DOM support
  */
-export declare function loadPage(url: string): Promise<BrowserPage>;
+export declare function loadPage(url: string, options?: {
+    timeout?: number;
+    maxSize?: number;
+    allowJs?: boolean;
+}): Promise<BrowserPage>;
 /**
  * Get all elements including shadow DOM
  */

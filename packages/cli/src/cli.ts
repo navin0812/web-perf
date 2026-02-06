@@ -30,6 +30,7 @@ program
     "Comma-separated list of audits to skip (accessibility,performance,seo,security,best-practices,pwa)",
   )
   .option("--no-color", "Disable colored output")
+  .option("--allow-js", "Allow JavaScript execution during audits")
   .addHelpText(
     "after",
     `
@@ -39,6 +40,7 @@ Examples:
   $ web-perf --url https://example.com --threshold '{"critical":0,"serious":10}'
   $ web-perf --url https://example.com --skip-audits accessibility,pwa
   $ web-perf --url https://example.com --format json --output-dir ./output
+  $ web-pref --url https://example.com --allow-js 
 
 Formats:
   terminal    Print colored report to console (default)
@@ -137,6 +139,7 @@ runAudit({
   outputDir: options.outputDir,
   threshold,
   skipAudits,
+  allowJs: options.allowJs || false,
 })
   .then((exitCode: number) => {
     process.exit(exitCode);

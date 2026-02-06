@@ -127,8 +127,15 @@ export function getAvailableAudits() {
 export async function runAudits(url, options = {}) {
     const startTime = Date.now();
     const skipAudits = options.skipAudits || [];
-    // Load the page
-    const page = await loadPage(url);
+    const auditTimeout = options.auditTimeout || 60000; // 60 second default
+    // Load the page with timeout and size limits
+    const page = await loadPage(url, {
+        timeout: options.timeout,
+        maxSize: options.maxSize,
+        allowJs: options.allowJs,
+    });
+    // TODO: Collect all DOM elements once for performance optimization
+    // const collectedElements = collectDOMElements(page);
     // Determine which audits to run
     const auditsToRun = [
         "accessibility",
@@ -138,9 +145,14 @@ export async function runAudits(url, options = {}) {
         "best-practices",
         "pwa",
     ].filter((audit) => !skipAudits.includes(audit));
-    // Run all audits in parallel
+    // Run all audits in parallel with timeout
     const auditPromises = auditsToRun.map((auditType) => runSingleAudit(page, auditType));
-    const auditResults = await Promise.all(auditPromises);
+    // Create timeout promise
+    const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error(`Audit timeout after ${auditTimeout}ms`)), auditTimeout));
+    const auditResults = await Promise.race([
+        Promise.all(auditPromises),
+        timeoutPromise,
+    ]);
     // Merge all results
     const allResults = auditResults.map((result) => ({
         issues: result.issues,

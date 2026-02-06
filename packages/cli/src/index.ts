@@ -18,6 +18,7 @@ export type CliOptions = {
   outputDir: string;
   threshold?: ThresholdConfig;
   skipAudits?: string[];
+  allowJs?: boolean;
 };
 
 /**
@@ -27,6 +28,7 @@ export async function runAudit(options: CliOptions): Promise<number> {
   console.log(chalk.blue("🔍 Starting web-perf audit...\n"));
   console.log(chalk.gray(`URL: ${options.url}`));
   console.log(chalk.gray(`Format: ${options.format}`));
+  console.log(chalk.gray(`Allow JS: ${options.allowJs ? "Yes" : "No"}`));
 
   if (options.skipAudits && options.skipAudits.length > 0) {
     console.log(chalk.gray(`Skipping: ${options.skipAudits.join(", ")}`));
@@ -45,6 +47,7 @@ export async function runAudit(options: CliOptions): Promise<number> {
     console.log(chalk.yellow("⚙️  Running audits..."));
     report = await runAudits(options.url, {
       skipAudits: options.skipAudits as AuditType[] | undefined,
+      allowJs: options.allowJs || false,
     });
     console.log(chalk.green("✓ Audits completed\n"));
   } catch (error) {

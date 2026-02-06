@@ -1,4 +1,5 @@
 import { WCAG_MAPPINGS } from "./constants.js";
+import { generateContextualId } from "../id-generator.js";
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 const axe = require("axe-core");
@@ -143,22 +144,18 @@ export async function auditAccessibility(page) {
         },
     };
     try {
-        // Inject axe-core into the jsdom window context
-        const script = page.document.createElement("script");
-        script.textContent = axe.source;
-        page.document.head.appendChild(script);
-        // Check if axe was injected successfully
+        // Inject axe-core into the jsdom window context (check if already injected for caching)
         if (!page.window.axe) {
-            throw new Error("Failed to inject axe-core into jsdom window");
+            const script = page.document.createElement("script");
+            script.textContent = axe.source;
+            page.document.head.appendChild(script);
+            // Check if axe was injected successfully
+            if (!page.window.axe) {
+                throw new Error("Failed to inject axe-core into jsdom window");
+            }
         }
         // Run axe-core from within the jsdom window context
         const results = await page.window.axe.run(page.document, config);
-        console.log("Accessibility audit results:", {
-            violations: results.violations.length,
-            passes: results.passes.length,
-            incomplete: results.incomplete?.length || 0,
-            violationIds: results.violations.map((v) => v.id)
-        });
         // Process violations
         for (const violation of results.violations) {
             for (const node of violation.nodes) {
@@ -169,7 +166,7 @@ export async function auditAccessibility(page) {
                 const selector = typeof selectorArray[0] === "string" ? selectorArray[0] : "body";
                 const element = page.document.querySelector(selector);
                 const issue = {
-                    id: `a11y-${violation.id}-${Date.now()}`,
+                    id: generateContextualId("a11y", violation.id),
                     ruleId: violation.id,
                     severity: mapAxeSeverityToSeverity(violation.impact),
                     category: (RULE_TO_CATEGORY[violation.id] || "technical"),
@@ -207,8 +204,6 @@ export async function auditAccessibility(page) {
         }
     }
     catch (error) {
-        console.error("Error in accessibility audit:", error);
-        console.error("Error stack:", error instanceof Error ? error.stack : "No stack trace");
         throw error;
     }
     return { issues, passed };
