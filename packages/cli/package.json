@@ -1,6 +1,6 @@
 {
   "name": "web-perf",
-  "version": "1.0.0",
+  "version": "1.0.0-beta.1",
   "type": "module",
   "description": "CLI tool and GitHub Action for web performance, accessibility, SEO, and security audits",
   "author": "Navin Joseph <navinperiyanayagam.joseph@gmail.com>",

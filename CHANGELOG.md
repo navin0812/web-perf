@@ -1,3 +1,14 @@
+## 1.0.0-beta.1 (2026-02-09)
+
+### Chores
+
+* update release configuration. ([ae4871b](https://github.com/navin0812/web-perf/commit/ae4871b23ff904be9eccf0471917066b672bb1f5))
+
+### CI/CD Changes
+
+* update release config, and update readme ([afb6e0c](https://github.com/navin0812/web-perf/commit/afb6e0cc0fa971cfff2a754817f19ac9028717dd))
+* update test urls, remove dependency checks. ([cd1c0a4](https://github.com/navin0812/web-perf/commit/cd1c0a4e534300b7cef3d5c89d7832856613bca6))
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
