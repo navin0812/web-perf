@@ -30,8 +30,7 @@ run_test() {
     echo "Args: $args"
     echo ""
     
-    output=$(node packages/cli/bin/cli.js --url "$url" $args 2>&1)
-    if [ $? -eq 0 ]; then
+    if output=$(node packages/cli/bin/cli.js --url "$url" $args 2>&1); then
         echo -e "${GREEN}✓ PASSED${NC}"
         ((PASSED++))
     else
