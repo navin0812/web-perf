@@ -2,16 +2,44 @@
   "name": "web-perf",
   "version": "1.0.0",
   "type": "module",
-  "description": "CLI tool for web performance & accessibility audits",
+  "description": "CLI tool and GitHub Action for web performance, accessibility, SEO, and security audits",
+  "author": "Navin Joseph <navinperiyanayagam.joseph@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/navin0812/web-perf.git",
+    "directory": "packages/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/navin0812/web-perf/issues"
+  },
+  "homepage": "https://github.com/navin0812/web-perf#readme",
+  "keywords": [
+    "cli",
+    "accessibility",
+    "performance",
+    "audit",
+    "wcag",
+    "web-vitals",
+    "seo",
+    "security",
+    "github-action",
+    "ci-cd"
+  ],
   "bin": {
     "web-perf": "bin/cli.js"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "bin",
+    "dist"
+  ],
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
-    "test": "node bin/cli.js --url https://example.com --format terminal"
+    "test": "node bin/cli.js --url https://example.com --format terminal",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@web-perf/core": "*",
@@ -21,5 +49,8 @@
   "devDependencies": {
     "@types/node": "^20.0.0",
     "typescript": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

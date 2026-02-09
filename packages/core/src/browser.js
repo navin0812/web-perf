@@ -1,0 +1,178 @@
+import { JSDOM, VirtualConsole } from "jsdom";
+import fetch from "node-fetch";
+/**
+ * Load a URL using jsdom with Shadow DOM support
+ */
+export async function loadPage(url, options = {}) {
+    const timeout = options.timeout || 10000; // 10 second default
+    const maxSize = options.maxSize || 10_000_000; // 10MB default
+    try {
+        // Create abort controller for timeout
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), timeout);
+        const response = await fetch(url, {
+            headers: {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+            },
+            signal: controller.signal,
+        });
+        clearTimeout(timeoutId);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch ${url}: ${response.statusText}`);
+        }
+        // Check content size before downloading
+        const contentLength = response.headers.get("content-length");
+        if (contentLength && parseInt(contentLength) > maxSize) {
+            throw new Error(`Page too large: ${contentLength} bytes (max: ${maxSize} bytes)`);
+        }
+        const html = await response.text();
+        // Check actual HTML size
+        if (html.length > maxSize) {
+            throw new Error(`HTML too large: ${html.length} bytes (max: ${maxSize} bytes)`);
+        }
+        // Create virtual console to suppress script errors from external scripts
+        const virtualConsole = new VirtualConsole();
+        virtualConsole.on("jsdomError", (error) => {
+            // Silently ignore JSDOM script errors from external scripts
+            // These are typically from third-party scripts that use APIs not supported by JSDOM
+            if (!error.message.includes("Could not parse CSS stylesheet")) {
+                // Only log non-CSS errors for debugging if needed
+                // console.error("JSDOM Error:", error.message);
+            }
+        });
+        // Create jsdom instance with Shadow DOM support
+        // Performance optimization: disable resource loading and script execution
+        // Most audits only need static HTML structure
+        const dom = new JSDOM(html, {
+            url,
+            pretendToBeVisual: true,
+            // Don't load external resources (huge perf gain) - omit resources option to disable
+            runScripts: !options.allowJs ? "outside-only" : undefined, // Only run scripts we inject (like axe-core)
+            virtualConsole,
+            beforeParse(window) {
+                // Polyfill browser APIs not supported by JSDOM
+                addBrowserPolyfills(window);
+                // Polyfill ShadowDOM if needed
+                if (!window.Element.prototype.attachShadow) {
+                    window.Element.prototype.attachShadow = function () {
+                        return this;
+                    };
+                }
+            },
+        });
+        return {
+            document: dom.window.document,
+            window: dom.window,
+            html,
+            url,
+        };
+    }
+    catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        throw new Error(`Failed to load page ${url}: ${message}`);
+    }
+}
+/**
+ * Get all elements including shadow DOM
+ */
+export function getAllElements(element) {
+    const elements = [element];
+    // Add children
+    for (const child of element.children) {
+        elements.push(...getAllElements(child));
+    }
+    // Add shadow DOM children if available
+    if (element.shadowRoot) {
+        for (const child of element.shadowRoot.children) {
+            elements.push(...getAllElements(child));
+        }
+    }
+    return elements;
+}
+/**
+ * Build selector for an element (including shadow DOM path)
+ */
+/**
+ * Add polyfills for browser APIs not supported by JSDOM
+ */
+function addBrowserPolyfills(window) {
+    // Polyfill ReadableStream and related APIs
+    if (typeof window.ReadableStream === "undefined") {
+        window.ReadableStream = class ReadableStream {
+            constructor() {
+                // Minimal polyfill - just prevents errors
+            }
+            getReader() {
+                return {
+                    read: () => Promise.resolve({ done: true, value: undefined }),
+                    releaseLock: () => { },
+                    closed: Promise.resolve(),
+                    cancel: () => Promise.resolve(),
+                };
+            }
+        };
+    }
+    // Polyfill WritableStream
+    if (typeof window.WritableStream === "undefined") {
+        window.WritableStream = class WritableStream {
+            constructor() { }
+            getWriter() {
+                return {
+                    write: () => Promise.resolve(),
+                    close: () => Promise.resolve(),
+                    abort: () => Promise.resolve(),
+                    closed: Promise.resolve(),
+                    ready: Promise.resolve(),
+                    releaseLock: () => { },
+                };
+            }
+        };
+    }
+    // Polyfill TransformStream
+    if (typeof window.TransformStream === "undefined") {
+        window.TransformStream = class TransformStream {
+            readable;
+            writable;
+            constructor() {
+                this.readable = new window.ReadableStream();
+                this.writable = new window.WritableStream();
+            }
+        };
+    }
+    // Ensure window.window exists (some libraries expect this)
+    if (!window.window) {
+        window.window = window;
+    }
+    // Polyfill requestAnimationFrame if needed
+    if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = (callback) => {
+            return window.setTimeout(() => callback(Date.now()), 16);
+        };
+    }
+    // Polyfill cancelAnimationFrame if needed
+    if (!window.cancelAnimationFrame) {
+        window.cancelAnimationFrame = (id) => {
+            window.clearTimeout(id);
+        };
+    }
+}
+export function buildSelector(element) {
+    const path = [];
+    let current = element;
+    while (current && current.nodeType === 1) {
+        let selector = current.tagName.toLowerCase();
+        if (current.id) {
+            selector += `#${current.id}`;
+        }
+        else if (current.className) {
+            const classes = current.className.split(/\s+/).slice(0, 2).join(".");
+            if (classes) {
+                selector += `.${classes}`;
+            }
+        }
+        path.unshift(selector);
+        current = current.parentElement;
+    }
+    return path.join(" > ");
+}
+//# sourceMappingURL=browser.js.map
