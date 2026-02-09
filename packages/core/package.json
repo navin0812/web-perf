@@ -1,5 +1,5 @@
 {
-  "name": "@web-perf/core",
+  "name": "@navinjoseph/web-perf-core",
   "version": "1.0.0-beta.3",
   "type": "module",
   "description": "Core audit modules for web performance, accessibility, SEO, and security",
@@ -30,6 +30,9 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",

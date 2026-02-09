@@ -2,7 +2,7 @@
 
 ### Chores
 
-* update change logs. ([911bdfe](https://github.com/navin0812/web-perf/commit/911bdfe335d363a225e3d15f5d2c78ba80277b5c))
+- update change logs. ([911bdfe](https://github.com/navin0812/web-perf/commit/911bdfe335d363a225e3d15f5d2c78ba80277b5c))
 
 ## [1.0.0-beta.2](https://github.com/navin0812/web-perf/compare/web-perf-monorepo-v1.0.0-beta.1...web-perf-monorepo-v1.0.0-beta.2) (2026-02-09)
 
@@ -223,6 +223,6 @@ See [prd.md](prd.md) for planned enhancements:
 
 ## Support
 
-- [GitHub Issues](https://github.com/navin0812/web-perf/issues) - Bug reports and feature requests
+- [GitHub Issues](https://github.com/navin0812/web-perf/issues) - Bug reports and feature requests.
 - [GitHub Discussions](https://github.com/navin0812/web-perf/discussions) - Questions and community.
 - [Documentation](https://github.com/navin0812/web-perf#readme) - Usage guides and examples.
