@@ -2,6 +2,7 @@ name: Release
 
 on:
   workflow_call:
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -13,9 +14,6 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: /
 
     steps:
       - name: Checkout
