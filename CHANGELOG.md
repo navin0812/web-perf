@@ -213,4 +213,4 @@ See [prd.md](prd.md) for planned enhancements:
 
 - [GitHub Issues](https://github.com/navin0812/web-perf/issues) - Bug reports and feature requests
 - [GitHub Discussions](https://github.com/navin0812/web-perf/discussions) - Questions and community
-- [Documentation](https://github.com/navin0812/web-perf#readme) - Usage guides and examples
+- [Documentation](https://github.com/navin0812/web-perf#readme) - Usage guides and examples.
