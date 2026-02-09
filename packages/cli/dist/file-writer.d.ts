@@ -1,4 +1,4 @@
-import { AuditReport } from "@web-perf/core";
+import { AuditReport } from "@navinjoseph/web-perf-core";
 /**
  * Ensures a directory exists, creating it if necessary
  */

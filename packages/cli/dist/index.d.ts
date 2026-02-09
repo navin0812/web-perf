@@ -1,4 +1,4 @@
-import { ThresholdConfig } from "@web-perf/core";
+import { ThresholdConfig } from "@navinjoseph/web-perf-core";
 export type CliOptions = {
     url: string;
     format: "json" | "html" | "terminal" | "all";

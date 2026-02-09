@@ -1,4 +1,4 @@
-import { AuditReport, ThresholdConfig } from "@web-perf/core";
+import { AuditReport, ThresholdConfig } from "@navinjoseph/web-perf-core";
 export type ThresholdResult = {
     passed: boolean;
     violations: Array<{
