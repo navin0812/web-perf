@@ -33,9 +33,7 @@
   "types": "dist/index.d.ts",
   "files": [
     "bin",
-    "dist",
-    "README.md",
-    "LICENSE"
+    "dist"
   ],
   "scripts": {
     "build": "tsc",
