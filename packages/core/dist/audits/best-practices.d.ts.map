@@ -1,0 +1,1 @@
+{"version":3,"file":"best-practices.d.ts","sourceRoot":"","sources":["../../src/audits/best-practices.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,KAAK,EAAE,YAAY,EAAE,MAAM,aAAa,CAAC;AAClD,OAAO,EAAE,WAAW,EAAiB,MAAM,eAAe,CAAC;AAE3D;;GAEG;AACH,wBAAsB,kBAAkB,CAAC,IAAI,EAAE,WAAW,GAAG,OAAO,CAAC;IACnE,MAAM,EAAE,KAAK,EAAE,CAAC;IAChB,MAAM,EAAE,YAAY,EAAE,CAAC;CACxB,CAAC,CA6ID"}
