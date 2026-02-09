@@ -5,7 +5,7 @@ import {
   ThresholdConfig,
   AuditReport,
   AuditType,
-} from "@web-perf/core";
+} from "@navinjoseph/web-perf-core";
 import { saveReport } from "./file-writer.js";
 import {
   checkThresholds,
