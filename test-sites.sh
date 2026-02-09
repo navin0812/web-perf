@@ -23,14 +23,15 @@ FAILED=0
 run_test() {
     local name=$1
     local url=$2
-    local args=$3
-    
+    shift 2
+    local args=("$@")
+
     echo -e "${YELLOW}Testing: $name${NC}"
     echo "URL: $url"
-    echo "Args: $args"
+    echo "Args: ${args[*]}"
     echo ""
-    
-    if output=$(node packages/cli/bin/cli.js --url "$url" $args 2>&1); then
+
+    if output=$(node packages/cli/bin/cli.js --url "$url" "${args[@]}" 2>&1); then
         echo -e "${GREEN}✓ PASSED${NC}"
         ((PASSED++))
     else
@@ -50,52 +51,52 @@ mkdir -p test-results
 # Test 1: Simple well-formed website
 run_test "Simple Website (bot)" \
     "https://amazon.com" \
-    "--format all --output-dir test-results/example"
+    --format all --output-dir test-results/example
 
 # Test 2: Complex website (GitHub)
 run_test "Complex Website (github.com)" \
     "https://github.com" \
-    "--format all --output-dir test-results/github"
+    --format all --output-dir test-results/github
 
 # Test 3: E-commerce site (Amazon)
 run_test "E-commerce (amazon.com)" \
     "https://amazon.com" \
-    "--format all --output-dir test-results/amazon"
+    --format all --output-dir test-results/amazon
 
 # Test 4: JSON format only
 run_test "JSON Format Only" \
     "https://amazon.com" \
-    "--format json --output-dir test-results/json-only"
+    --format json --output-dir test-results/json-only
 
 # Test 5: HTML format only
 run_test "HTML Format Only" \
     "https://amazon.com" \
-    "--format html --output-dir test-results/html-only"
+    --format html --output-dir test-results/html-only
 
 # Test 6: Terminal format only
 run_test "Terminal Format Only" \
     "https://amazon.com" \
-    "--format terminal"
+    --format terminal
 
 # Test 7: With thresholds (should pass)
 run_test "Thresholds (Lenient)" \
     "https://amazon.com" \
-    "--format json --output-dir test-results/threshold-pass --threshold '{"critical":100, "serious":100, "minor":100}'"
+    --format json --output-dir test-results/threshold-pass --threshold '{"critical":100,"serious":100,"minor":100}'
 
 # Test 8: Skip audits
 run_test "Skip PWA Audit" \
     "https://amazon.com" \
-    "--format json --output-dir test-results/skip-pwa --skip-audits pwa"
+    --format json --output-dir test-results/skip-pwa --skip-audits pwa
 
 # Test 9: Skip multiple audits
 run_test "Skip Multiple Audits" \
     "https://amazon.com" \
-    "--format json --output-dir test-results/skip-multiple --skip-audits pwa,best-practices"
+    --format json --output-dir test-results/skip-multiple --skip-audits pwa,best-practices
 
 # Test 10: Wikipedia (knowledge site)
 run_test "Knowledge Site (wikipedia.org)" \
     "https://wikipedia.org" \
-    "--format json --output-dir test-results/wikipedia"
+    --format json --output-dir test-results/wikipedia
 
 # Summary
 echo "================================"
