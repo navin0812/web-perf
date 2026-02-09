@@ -1,3 +1,9 @@
+## [1.0.0-beta.4](https://github.com/navin0812/web-perf/compare/web-perf-monorepo-v1.0.0-beta.3...web-perf-monorepo-v1.0.0-beta.4) (2026-02-09)
+
+### Chores
+
+* update package ([05cc144](https://github.com/navin0812/web-perf/commit/05cc144e29ec330a45310e50794d6dab1ad4f08c))
+
 ## [1.0.0-beta.3](https://github.com/navin0812/web-perf/compare/web-perf-monorepo-v1.0.0-beta.2...web-perf-monorepo-v1.0.0-beta.3) (2026-02-09)
 
 ### Chores

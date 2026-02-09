@@ -1,6 +1,6 @@
 {
   "name": "@navinjoseph/web-perf-core",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.4",
   "type": "module",
   "description": "Core audit modules for web performance, accessibility, SEO, and security",
   "author": "Navin Joseph <navinperiyanayagam.joseph@gmail.com>",
