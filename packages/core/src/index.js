@@ -1,3 +1,5 @@
+// Core types
+export * from "./types.js";
 // Browser utilities
 export * from "./browser.js";
 // Audit modules

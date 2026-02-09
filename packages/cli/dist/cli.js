@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { Command } from "commander";
 import chalk from "chalk";
-import { runAudit } from "./index.ts";
+import { runAudit } from "./index.js";
 const program = new Command();
 program
     .name("web-perf")

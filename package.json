@@ -27,9 +27,10 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "npm run build --workspaces",
+    "build": "npm run build --workspace=packages/core && npm run build --workspace=packages/cli",
     "dev": "npm run dev --workspaces",
-    "clean": "rm -rf packages/*/dist packages/*/node_modules node_modules",
+    "clean": "rm -rf packages/*/dist packages/*/node_modules node_modules ",
+    "clean-build": "rm -rf packages/core/dist packages/cli/dist && npm run build",
     "test": "./test-sites.sh",
     "prepublishOnly": "npm run build",
     "semantic-release": "semantic-release"

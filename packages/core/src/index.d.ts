@@ -1,4 +1,4 @@
-export type * from "./types.js";
+export * from "./types.js";
 export * from "./browser.js";
 export { auditAccessibility } from "./audits/accessibility.js";
 export { auditSEO } from "./audits/seo.js";
