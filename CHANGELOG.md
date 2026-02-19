@@ -1,3 +1,9 @@
+## [1.3.0](https://github.com/navin0812/web-perf/compare/web-perf-monorepo-v1.2.0...web-perf-monorepo-v1.3.0) (2026-02-19)
+
+### Features
+
+* release new version. ([d937748](https://github.com/navin0812/web-perf/commit/d9377486ddd65f5e8fcadd393c82a4f716dad6e7))
+
 ## [1.2.0](https://github.com/navin0812/web-perf/compare/web-perf-monorepo-v1.1.0...web-perf-monorepo-v1.2.0) (2026-02-19)
 
 ### Features
