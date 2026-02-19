@@ -127,7 +127,7 @@
     [
       "@semantic-release/exec",
       {
-        "publishCmd": "npm publish --workspace=packages/core --workspace=packages/cli --access public"
+        "publishCmd": "npm publish --workspace=packages/core --workspace=packages/cli --access public --provenance"
       }
     ],
     [
