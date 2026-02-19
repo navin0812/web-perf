@@ -2,7 +2,7 @@
 
 [![CI Checks](https://github.com/navin0812/web-perf/actions/workflows/ci.yml/badge.svg)](https://github.com/navin0812/web-perf/actions/workflows/ci.yml)
 [![Release](https://github.com/navin0812/web-perf/actions/workflows/release.yml/badge.svg)](https://github.com/navin0812/web-perf/actions/workflows/release.yml)
-[![npm version](https://badge.fury.io/js/web-perf.svg)](https://www.npmjs.com/package/web-perf)
+[![npm version](https://badge.fury.io/js/%40navinjoseph%2Fweb-perf-cli.svg)](https://www.npmjs.com/package/@navinjoseph/web-perf-cli)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 A comprehensive command-line tool and GitHub Action for auditing web pages for accessibility, performance, SEO, security, best practices, and PWA compliance.
