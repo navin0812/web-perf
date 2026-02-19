@@ -2,47 +2,47 @@
 
 ### Features
 
-* release new version. ([d937748](https://github.com/navin0812/web-perf/commit/d9377486ddd65f5e8fcadd393c82a4f716dad6e7))
+- release new version. ([d937748](https://github.com/navin0812/web-perf/commit/d9377486ddd65f5e8fcadd393c82a4f716dad6e7))
 
 ## [1.2.0](https://github.com/navin0812/web-perf/compare/web-perf-monorepo-v1.1.0...web-perf-monorepo-v1.2.0) (2026-02-19)
 
 ### Features
 
-* new stable release. ([6fd579a](https://github.com/navin0812/web-perf/commit/6fd579a07210de5db4e067cb72b642c266000dac))
+- new stable release. ([6fd579a](https://github.com/navin0812/web-perf/commit/6fd579a07210de5db4e067cb72b642c266000dac))
 
 ## [1.1.0](https://github.com/navin0812/web-perf/compare/web-perf-monorepo-v1.0.0...web-perf-monorepo-v1.1.0) (2026-02-19)
 
 ### Features
 
-* stable release - update npm badge to scoped package ([2b83b95](https://github.com/navin0812/web-perf/commit/2b83b95da9cc0a8addc9613dbf01fbe6e7dd0ba8))
+- stable release - update npm badge to scoped package ([2b83b95](https://github.com/navin0812/web-perf/commit/2b83b95da9cc0a8addc9613dbf01fbe6e7dd0ba8))
 
 ### CI/CD Changes
 
-* update ref name. ([23de0eb](https://github.com/navin0812/web-perf/commit/23de0eb0f7359a69562e2b470cf2949bba03560a))
+- update ref name. ([23de0eb](https://github.com/navin0812/web-perf/commit/23de0eb0f7359a69562e2b470cf2949bba03560a))
 
 ## 1.0.0 (2026-02-19)
 
 ### Chores
 
-* **release:** 1.0.0-beta.1 [skip ci] ([7954a95](https://github.com/navin0812/web-perf/commit/7954a954cc3ff5ff9fd887c7546cea5df011808b))
-* **release:** 1.0.0-beta.2 [skip ci] ([577ee88](https://github.com/navin0812/web-perf/commit/577ee88ce69c5575b3c48a6863b79dc5d0e999a6))
-* **release:** 1.0.0-beta.3 [skip ci] ([daf4273](https://github.com/navin0812/web-perf/commit/daf4273cfaa384ff02efc1adef8d3cd30f4d8a1e))
-* **release:** 1.0.0-beta.4 [skip ci] ([cf19f11](https://github.com/navin0812/web-perf/commit/cf19f1145d9b2739481112a7ae0f850b505a5382))
-* **release:** 1.0.0-beta.5 [skip ci] ([7a5f808](https://github.com/navin0812/web-perf/commit/7a5f8083ba05c4f5ebd59c6be88c383fab1857f2))
-* changelog.md ([cc8a0a8](https://github.com/navin0812/web-perf/commit/cc8a0a88a1fa4273a643c9bca70b7aefe704d8cc))
-* update change logs. ([911bdfe](https://github.com/navin0812/web-perf/commit/911bdfe335d363a225e3d15f5d2c78ba80277b5c))
-* update changelog. ([79d87a3](https://github.com/navin0812/web-perf/commit/79d87a392576cb923182250a8751215ffbb65952))
-* update package ([05cc144](https://github.com/navin0812/web-perf/commit/05cc144e29ec330a45310e50794d6dab1ad4f08c))
-* update release configuration. ([ae4871b](https://github.com/navin0812/web-perf/commit/ae4871b23ff904be9eccf0471917066b672bb1f5))
+- **release:** 1.0.0-beta.1 [skip ci] ([7954a95](https://github.com/navin0812/web-perf/commit/7954a954cc3ff5ff9fd887c7546cea5df011808b))
+- **release:** 1.0.0-beta.2 [skip ci] ([577ee88](https://github.com/navin0812/web-perf/commit/577ee88ce69c5575b3c48a6863b79dc5d0e999a6))
+- **release:** 1.0.0-beta.3 [skip ci] ([daf4273](https://github.com/navin0812/web-perf/commit/daf4273cfaa384ff02efc1adef8d3cd30f4d8a1e))
+- **release:** 1.0.0-beta.4 [skip ci] ([cf19f11](https://github.com/navin0812/web-perf/commit/cf19f1145d9b2739481112a7ae0f850b505a5382))
+- **release:** 1.0.0-beta.5 [skip ci] ([7a5f808](https://github.com/navin0812/web-perf/commit/7a5f8083ba05c4f5ebd59c6be88c383fab1857f2))
+- changelog.md ([cc8a0a8](https://github.com/navin0812/web-perf/commit/cc8a0a88a1fa4273a643c9bca70b7aefe704d8cc))
+- update change logs. ([911bdfe](https://github.com/navin0812/web-perf/commit/911bdfe335d363a225e3d15f5d2c78ba80277b5c))
+- update changelog. ([79d87a3](https://github.com/navin0812/web-perf/commit/79d87a392576cb923182250a8751215ffbb65952))
+- update package ([05cc144](https://github.com/navin0812/web-perf/commit/05cc144e29ec330a45310e50794d6dab1ad4f08c))
+- update release configuration. ([ae4871b](https://github.com/navin0812/web-perf/commit/ae4871b23ff904be9eccf0471917066b672bb1f5))
 
 ### CI/CD Changes
 
-* update ci for release. ([37ce082](https://github.com/navin0812/web-perf/commit/37ce0827f06c6a7ccd422df3f6b34efa5def0816))
-* update readme ([acc2a87](https://github.com/navin0812/web-perf/commit/acc2a8715e638f60ddf79115d32e2e1e5fb170aa))
-* update release config, and update readme ([afb6e0c](https://github.com/navin0812/web-perf/commit/afb6e0cc0fa971cfff2a754817f19ac9028717dd))
-* update release.yml. ([556f100](https://github.com/navin0812/web-perf/commit/556f10064b3545a91872f6415b581a2f559adc9b))
-* update test urls, remove dependency checks. ([cd1c0a4](https://github.com/navin0812/web-perf/commit/cd1c0a4e534300b7cef3d5c89d7832856613bca6))
-* update workflow. ([020104a](https://github.com/navin0812/web-perf/commit/020104a73b538ab3bfdb2884926198a0240e271e))
+- update ci for release. ([37ce082](https://github.com/navin0812/web-perf/commit/37ce0827f06c6a7ccd422df3f6b34efa5def0816))
+- update readme ([acc2a87](https://github.com/navin0812/web-perf/commit/acc2a8715e638f60ddf79115d32e2e1e5fb170aa))
+- update release config, and update readme ([afb6e0c](https://github.com/navin0812/web-perf/commit/afb6e0cc0fa971cfff2a754817f19ac9028717dd))
+- update release.yml. ([556f100](https://github.com/navin0812/web-perf/commit/556f10064b3545a91872f6415b581a2f559adc9b))
+- update test urls, remove dependency checks. ([cd1c0a4](https://github.com/navin0812/web-perf/commit/cd1c0a4e534300b7cef3d5c89d7832856613bca6))
+- update workflow. ([020104a](https://github.com/navin0812/web-perf/commit/020104a73b538ab3bfdb2884926198a0240e271e))
 
 ## [1.0.0-beta.5](https://github.com/navin0812/web-perf/compare/web-perf-monorepo-v1.0.0-beta.4...web-perf-monorepo-v1.0.0-beta.5) (2026-02-09)
 
@@ -283,4 +283,4 @@ See [prd.md](prd.md) for planned enhancements:
 
 - [GitHub Issues](https://github.com/navin0812/web-perf/issues) - Bug reports and feature requests.
 - [GitHub Discussions](https://github.com/navin0812/web-perf/discussions) - Questions and community.
-- [Documentation](https://github.com/navin0812/web-perf#readme) - Usage guides and examples..
+- [Documentation](https://github.com/navin0812/web-perf#readme) - Usage guides and examples...
