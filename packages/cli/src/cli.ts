@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { Command } from "commander";
 import chalk from "chalk";
-import { ThresholdConfig } from "@web-perf/core";
+import { ThresholdConfig } from "@navinjoseph/web-perf-core";
 import { runAudit } from "./index.js";
 
 const program = new Command();

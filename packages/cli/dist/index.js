@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { runAudits, renderReport, } from "@web-perf/core";
+import { runAudits, renderReport, } from "@navinjoseph/web-perf-core";
 import { saveReport } from "./file-writer.js";
 import { checkThresholds, formatThresholdViolations, } from "./threshold-checker.js";
 /**

@@ -1,3 +1,38 @@
+## [1.0.0-beta.5](https://github.com/navin0812/web-perf/compare/web-perf-monorepo-v1.0.0-beta.4...web-perf-monorepo-v1.0.0-beta.5) (2026-02-09)
+
+### Chores
+
+- changelog.md ([cc8a0a8](https://github.com/navin0812/web-perf/commit/cc8a0a88a1fa4273a643c9bca70b7aefe704d8cc))
+
+## [1.0.0-beta.4](https://github.com/navin0812/web-perf/compare/web-perf-monorepo-v1.0.0-beta.3...web-perf-monorepo-v1.0.0-beta.4) (2026-02-09)
+
+### Chores
+
+- update package ([05cc144](https://github.com/navin0812/web-perf/commit/05cc144e29ec330a45310e50794d6dab1ad4f08c))
+
+## [1.0.0-beta.3](https://github.com/navin0812/web-perf/compare/web-perf-monorepo-v1.0.0-beta.2...web-perf-monorepo-v1.0.0-beta.3) (2026-02-09)
+
+### Chores
+
+- update change logs. ([911bdfe](https://github.com/navin0812/web-perf/commit/911bdfe335d363a225e3d15f5d2c78ba80277b5c))
+
+## [1.0.0-beta.2](https://github.com/navin0812/web-perf/compare/web-perf-monorepo-v1.0.0-beta.1...web-perf-monorepo-v1.0.0-beta.2) (2026-02-09)
+
+### Chores
+
+- update changelog. ([79d87a3](https://github.com/navin0812/web-perf/commit/79d87a392576cb923182250a8751215ffbb65952))
+
+## 1.0.0-beta.1 (2026-02-09)
+
+### Chores
+
+- update release configuration. ([ae4871b](https://github.com/navin0812/web-perf/commit/ae4871b23ff904be9eccf0471917066b672bb1f5))
+
+### CI/CD Changes
+
+- update release config, and update readme ([afb6e0c](https://github.com/navin0812/web-perf/commit/afb6e0cc0fa971cfff2a754817f19ac9028717dd))
+- update test urls, remove dependency checks. ([cd1c0a4](https://github.com/navin0812/web-perf/commit/cd1c0a4e534300b7cef3d5c89d7832856613bca6))
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
@@ -194,12 +229,12 @@ See [prd.md](prd.md) for planned enhancements:
 - Parallel file writing for multi-format output
 - Additional audit categories
 - Performance trend tracking
-- CI/CD integration examples for other platforms
+- CI/CD integration examples for other platforms.
 
 ---
 
 ## Support
 
-- [GitHub Issues](https://github.com/navin0812/web-perf/issues) - Bug reports and feature requests
-- [GitHub Discussions](https://github.com/navin0812/web-perf/discussions) - Questions and community
-- [Documentation](https://github.com/navin0812/web-perf#readme) - Usage guides and examples
+- [GitHub Issues](https://github.com/navin0812/web-perf/issues) - Bug reports and feature requests.
+- [GitHub Discussions](https://github.com/navin0812/web-perf/discussions) - Questions and community.
+- [Documentation](https://github.com/navin0812/web-perf#readme) - Usage guides and examples..
