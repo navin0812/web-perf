@@ -1,3 +1,13 @@
+## [1.1.0](https://github.com/navin0812/web-perf/compare/web-perf-monorepo-v1.0.0...web-perf-monorepo-v1.1.0) (2026-02-19)
+
+### Features
+
+* stable release - update npm badge to scoped package ([2b83b95](https://github.com/navin0812/web-perf/commit/2b83b95da9cc0a8addc9613dbf01fbe6e7dd0ba8))
+
+### CI/CD Changes
+
+* update ref name. ([23de0eb](https://github.com/navin0812/web-perf/commit/23de0eb0f7359a69562e2b470cf2949bba03560a))
+
 ## 1.0.0 (2026-02-19)
 
 ### Chores
