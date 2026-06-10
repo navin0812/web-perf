@@ -1,3 +1,9 @@
+## [1.5.1](https://github.com/navin0812/web-perf/compare/web-perf-monorepo-v1.5.0...web-perf-monorepo-v1.5.1) (2026-06-10)
+
+### Bug Fixes
+
+* **core:** escape </script> sequences in HTML report issue data ([eeab7b4](https://github.com/navin0812/web-perf/commit/eeab7b40ab009972a8b0c5095d170e8e6bc66ea3))
+
 ## [1.5.0](https://github.com/navin0812/web-perf/compare/web-perf-monorepo-v1.4.0...web-perf-monorepo-v1.5.0) (2026-02-19)
 
 ### Features
