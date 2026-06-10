@@ -4,7 +4,12 @@ import { AuditReport } from "../types.js";
  * Render audit report as an interactive HTML dashboard
  */
 export function renderHtmlReport(report: AuditReport): string {
-  const issuesJson = JSON.stringify(report.issues);
+  // Escape characters that would prematurely terminate the inline <script>
+  // block (e.g. "</script>" inside issue HTML snippets) or break JS parsing.
+  const issuesJson = JSON.stringify(report.issues)
+    .replace(/</g, "\\u003c")
+    .replace(/\u2028/g, "\\u2028")
+    .replace(/\u2029/g, "\\u2029");
 
   return `<!DOCTYPE html>
 <html lang="en">
